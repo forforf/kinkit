@@ -27,6 +27,21 @@ module KinkitSpecH
 
    UniqGraph2 = RGL::DirectedAdjacencyGraph[[:c, :cc]]
 
+   BurpingChildren = {:a => {:children => [:aa, :ab, :ac]},
+                      :b => {:children => [:ba, :bb, :bc]},
+                      :c => {:children => [:cc]},
+                      :aa => {:children => [:a, :aaa]},
+                      :ab => {:children => [:ba]},
+                      :ac => {:children => []},  
+                      :ba => {:children => []},
+                      :bb => {:children => [:ab, :bbb]},
+                      :bc => {:children => [:bcc]},
+                      :cc => {:children => []},
+                      :aaa => {:children => [:ab, :bbb]},
+                      :bbb => {:children => [:bc]},
+                      :bcc => {:children => []}
+   }
+
 end
 
 
@@ -38,12 +53,21 @@ describe "Kinkit" do
     @parent_id = ParentID
     @uniq_graph1 = UniqGraph1
     @uniq_graph2 = UniqGraph2
+    @nodes_with_children = BurpRelations.merge(BurpingChildren){|k,v1,v2| v1.merge(v2)}
   end
 
   it "initializes correctly" do
     bug = Kinkit.new(@burp_nodes, @parent_id)
     bug.should be_a Kinkit
     bug.uniq_digraphs.should == [@uniq_graph1, @uniq_graph2]
-    bug.parent_child_maps.should == :foo
+    bug.parent_child_maps.each do |node, node_data|
+      node_data.each do |data_key, data|
+        if ( data && data.is_a?(Array) )
+          data.sort.should == @nodes_with_children[node][data_key].sort
+        else
+          data.should == @nodes_with_children[node][data_key]
+        end
+      end
+    end
   end
 end
