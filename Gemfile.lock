@@ -1,3 +1,10 @@
+GIT
+  remote: git@github.com:/forforf/rgl.git
+  revision: febb818f754637813144556b651f1167bf3e8363
+  specs:
+    forforf-rgl (0.5.0)
+      stream (>= 0.5)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -17,12 +24,14 @@ GEM
     rspec-expectations (2.3.0)
       diff-lcs (~> 1.1.2)
     rspec-mocks (2.3.0)
+    stream (0.5)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   bundler (~> 1.0.0)
+  forforf-rgl!
   jeweler (~> 1.5.2)
   rcov
   rspec (~> 2.3.0)
