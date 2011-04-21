@@ -15,13 +15,13 @@ Jeweler::Tasks.new do |gem|
   gem.name = "kinkit"
   gem.homepage = "http://github.com/forforf/kinkit"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{Invert relationships between node lists}
+  gem.description = %Q{Given a hash of nodes (also a hash), and there is a node key that defines which other node (if any) in the hash is its parent, determine for each node, its children. }
   gem.email = "dmarti21@gmail.com"
   gem.authors = ["Dave M"]
   # Include your dependencies below. Runtime dependencies are required when using your gem,
   # and development dependencies are only needed for development (ie running rake tasks, tests, etc)
-  #  gem.add_runtime_dependency 'jabber4r', '> 0.1'
+    #gem.add_runtime_dependency 'rgl', '>= 0.5' 
   #  gem.add_development_dependency 'rspec', '> 1.2.3'
 end
 Jeweler::RubygemsDotOrgTasks.new
@@ -29,7 +29,7 @@ Jeweler::RubygemsDotOrgTasks.new
 require 'rspec/core'
 require 'rspec/core/rake_task'
 RSpec::Core::RakeTask.new(:spec) do |spec|
-  spec.pattern = FileList['spec/**/*_spec.rb']
+ spec.pattern = FileList['spec/**/*_spec.rb']
 end
 
 RSpec::Core::RakeTask.new(:rcov) do |spec|
