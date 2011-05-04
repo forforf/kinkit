@@ -25,6 +25,8 @@ class Kinkit
       if nodes_map[vert]
         #if they do
         full_map[vert] = nodes_map[vert].merge({:children => parent_dg.adjacent_vertices(vert)})
+        #full_map[vert] = nodes_map[vert]
+        #full_map[vert][:children] = parent_dg.adjacent_vertices(vert)
       else
         #if they don't create a stub node
         full_map[vert] = {:parents => [], :children => parent_dg.adjacent_vertices(vert)}
