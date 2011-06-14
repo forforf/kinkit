@@ -16,7 +16,9 @@ module KinkitSpecH
       :cc => {:id => :cc, :parents => [:c], :data => "CC", :other_stuff => "_CC_"},
       :aaa => {:id => :aaa, :parents => [:aa], :data => "AAA", :other_stuff => "_AAA_"},
       :bbb => {:id => :bbb, :parents => [:bb, :aaa], :data => "BBB", :other_stuff => "_BBB_"},
-      :bcc => {:id => :bcc, :parents => [:bc], :data => "BCC", :other_stuff => "_BCC_"}
+      :bcc => {:id => :bcc, :parents => [:bc], :data => "BCC", :other_stuff => "_BCC_"},
+      #d has no children and no parents (orphan node)
+      :d => {:data => "DDD", :other_stuff => "_DDD_"}
     }
 
    ParentID = :parents
@@ -41,6 +43,8 @@ module KinkitSpecH
                       :bbb => {:children => [:bc]},
                       :bcc => {:children => []}
    }
+   
+   Orphans = [:d]
 
 end
 
@@ -53,21 +57,25 @@ describe "Kinkit" do
     @parent_id = ParentID
     @uniq_graph1 = UniqGraph1
     @uniq_graph2 = UniqGraph2
+    @orphans = Orphans
     @nodes_with_children = BurpRelations.merge(BurpingChildren){|k,v1,v2| v1.merge(v2)}
   end
 
   it "initializes correctly" do
     bug = Kinkit.new(@burp_nodes, @parent_id)
     bug.should be_a Kinkit
-    bug.uniq_digraphs.should == [@uniq_graph1, @uniq_graph2]
+    bug.uniq_digraphs.should == [@uniq_graph2, @uniq_graph1]
     bug.parent_child_maps.each do |node, node_data|
       node_data.each do |data_key, data|
-        if ( data && data.is_a?(Array) )
+        if ( data && data.is_a?(Array) && @nodes_with_children[node][data_key] )
           data.sort.should == @nodes_with_children[node][data_key].sort
+        elsif @nodes_with_children[node][data_key].nil?
+          data.should == []
         else
           data.should == @nodes_with_children[node][data_key]
         end
       end
     end
+    bug.orphans.should == @orphans
   end
 end
