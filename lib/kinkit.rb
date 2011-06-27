@@ -103,11 +103,14 @@ module GraphIntersection
   def connected_to?(dg)
     self_verts = self.vertices
     dg_verts = dg.vertices
+    #puts "Self Vs: #{self_verts.inspect}"
+    #puts "DG Vs: #{dg_verts}"
     connected = if (self_verts & dg_verts).empty?
         false
     else
       true
     end
+    #puts "Connected: #{connected}"
     connected
   end
 
@@ -134,7 +137,7 @@ module GraphIntersection
     edges = self.edge_array
     uniq_dgs = edges.map do |edge|
       a_dg = RGL::DirectedAdjacencyGraph[*edge]
-      #a_dg.extend(GraphIntersection)
+      a_dg.extend(GraphIntersection)
       a_dg
     end
     uniq_dgs
@@ -152,7 +155,6 @@ module GraphIntersection
 
       eval_dg = merged_dgs.shift
       uniq = true
-      
       #check and see if the dg under eval should be merged into 
       #one of the other dgs
       merged_dgs.each do |other_dg| #merge loop
@@ -167,7 +169,8 @@ module GraphIntersection
           break #exit merge loop
         end
       end
-      
+
+      puts "Looked at other dgs, Uniq is now: #{uniq}"
       
       if uniq == true #means we went through the entire array without a match
         uniq_uniq = true
@@ -178,6 +181,8 @@ module GraphIntersection
             u_dg.merge(eval_dg)
           end
         end
+        
+
         uniq_dgs << eval_dg if uniq_uniq
       end
     end
@@ -222,14 +227,16 @@ class Kinkit
     uniq_verts = @uniq_digraphs.inject([]){|m,g| m<<g.vertices}.flatten
     #orphans have no parents or children
     orphan_keys = just_essentials.keys - uniq_verts
-    # @nodes_map
-    #puts 
+     @nodes_map
+    #Not sure this is the best way for dealing with orphans
+    #Returns a Digraph of (:orphan -> :orphan)
+    #This is probably a broken way of doing things
     @orphans = []
     orphan_keys.each do |ok|
       orphan = @nodes_map[ok]
       @orphans << RGL::ImplicitGraph.new {|g|
         g.vertex_iterator { |b| [orphan].each(&b) }
-        g.adjacent_iterator {|x, b| [orphan].each {|y| b.call(y) }
+        g.adjacent_iterator {|x, b| [orphan].each {|y| b.call(y) }}
         g.directed = true
       }
     end
