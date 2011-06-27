@@ -44,7 +44,7 @@ module KinkitSpecH
                       :bcc => {:children => []}
    }
    
-   Orphans = [:d]
+   Orphans = {:d => BurpRelations[:d]}
 
 end
 

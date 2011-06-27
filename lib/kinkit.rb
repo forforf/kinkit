@@ -221,7 +221,19 @@ class Kinkit
     @uniq_digraphs = parent_child_dg.find_connected_graphs
     uniq_verts = @uniq_digraphs.inject([]){|m,g| m<<g.vertices}.flatten
     #orphans have no parents or children
-    @orphans = just_essentials.keys - uniq_verts
+    orphan_keys = just_essentials.keys - uniq_verts
+    # @nodes_map
+    #puts 
+    @orphans = []
+    orphan_keys.each do |ok|
+      orphan = @nodes_map[ok]
+      @orphans << RGL::ImplicitGraph.new {|g|
+        g.vertex_iterator { |b| [orphan].each(&b) }
+        g.adjacent_iterator {|x, b| [orphan].each {|y| b.call(y) }
+        g.directed = true
+      }
+    end
+    #p @orphans  
     @parent_child_maps = map_parent_and_children(parent_child_dg, child_parent_dg, @nodes_map)
   end
 
