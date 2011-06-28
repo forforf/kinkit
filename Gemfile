@@ -3,6 +3,7 @@ source "http://rubygems.org"
 # Example:
 #   gem "activesupport", ">= 2.3.5"
   gem "rgl", "~> 0.4.0"
+  gemspec
 #forforf-rgl dependency should'nt be needed anymore
 #gem 'forforf-rgl', :git => "git@github.com:/forforf/rgl.git"
 # Add dependencies to develop your gem here.

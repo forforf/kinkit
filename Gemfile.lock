@@ -1,3 +1,9 @@
+PATH
+  remote: .
+  specs:
+    kinkit (0.1.1)
+      rgl (~> 0.4.0)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -28,6 +34,7 @@ PLATFORMS
 DEPENDENCIES
   bundler (~> 1.0.0)
   jeweler (~> 1.5.2)
+  kinkit!
   rcov
   rgl (~> 0.4.0)
   rspec (~> 2.3.0)
