@@ -59,7 +59,7 @@ module GraphIntersection
   #deprecated method name
   alias :nodes_with_no_parents :roots
 
-
+=end
   #selects the vertices with the maximum tree size (not just out degree)
   def best_top_vertices
     top_nodes = {}
@@ -71,7 +71,6 @@ module GraphIntersection
   end
   #deprecated method name
   alias :best_top_nodes :best_top_vertices
-=end
 
 =begin
     def add_edge (u, v)
