@@ -7,7 +7,7 @@ require 'rgl/mutable'
 require 'rgl/traversal'
 
 module GraphIntersection
-=begin
+#=begin
   def alias_nils(nil_term = :zzznull)
     edges = self.edge_array
     return self unless edges.flatten.include? nil
@@ -60,7 +60,7 @@ module GraphIntersection
   #deprecated method name
   alias :nodes_with_no_parents :roots
 
-=end
+#=end
   #selects the vertices with the maximum tree size (not just out degree)
   def best_top_vertices
     top_nodes = {}
@@ -73,7 +73,7 @@ module GraphIntersection
   #deprecated method name
   alias :best_top_nodes :best_top_vertices
 
-=begin
+#=begin
     def add_edge (u, v)
       raise NotImplementedError
     end
@@ -83,7 +83,7 @@ module GraphIntersection
     def add_vertices (*a)
       a.each { |v| add_vertex v }
     end
-=end
+#=end
 
 
   #returnes edges as a nested array
@@ -91,13 +91,13 @@ module GraphIntersection
   def edge_array
     self.edges.map{|edge| edge.to_a}
   end
-=begin  
+#=begin  
   #find parents to a given vertex
   def source_vertices(v)
     rdg = self.reverse
     rdg.adjacent_vertices(v)
   end
-=end
+#=end
   #determines if current digraph overlaps
   #with another digraph (i.e. any shared vertices)
   def connected_to?(dg)
@@ -119,7 +119,7 @@ module GraphIntersection
     self.add_edges(*other.edge_array)
     self
   end
-=begin  
+#=begin  
   #test for edges that connect, note: returns union of the edges.
   def connected_edges?(this_edges, other_edges)
     intersection = this_edges.flatten & other_edges.flatten
@@ -129,7 +129,7 @@ module GraphIntersection
       res = this_edges | other_edges
     end
   end
-=end  
+#=end  
   #This breaks the graph down and returns an array of 
   #its component digraphs, where each edge forms a single digraph
   #(i.e., an array of digraphs, each with two vertices)
