@@ -73,7 +73,7 @@ module GraphIntersection
   #deprecated method name
   alias :best_top_nodes :best_top_vertices
 
-#=begin
+=begin
     def add_edge (u, v)
       raise NotImplementedError
     end
@@ -83,7 +83,7 @@ module GraphIntersection
     def add_vertices (*a)
       a.each { |v| add_vertex v }
     end
-#=end
+=end
 
 
   #returnes edges as a nested array
