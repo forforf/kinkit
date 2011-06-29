@@ -4,6 +4,7 @@
 require 'rgl/adjacency'
 require 'rgl/implicit'
 require 'rgl/mutable'
+require 'rgl/traversal'
 
 module GraphIntersection
 =begin
