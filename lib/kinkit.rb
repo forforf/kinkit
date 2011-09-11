@@ -170,7 +170,7 @@ module GraphIntersection
         end
       end
 
-      puts "Looked at other dgs, Uniq is now: #{uniq}"
+      #puts "Looked at other dgs, Uniq is now: #{uniq}"
       
       if uniq == true #means we went through the entire array without a match
         uniq_uniq = true
